@@ -17,51 +17,40 @@ var rollbar = new Rollbar({
 })
 
 // record a generic message and send it to Rollbar
-rollbar.log('Hello world!')
 
-const students = ['Jimmy', 'Timothy', 'Jimothy']
+const foods = ['oranges', 'apples', 'bananas']
 
 app.get('/', (req, res) => {
-    rollbar.info('served the html')
-    res.sendFile(path.join(__dirname, '/index.html'))
+   
 })
 
-app.get('/api/students', (req, res) => {
-    rollbar.info('someone requested the list of students')
-    res.status(200).send(students)
+app.get('/api/foods', (req, res) => {
+    
 })
 
-app.post('/api/students', (req, res) => {
+app.post('/api/foods', (req, res) => {
    let {name} = req.body
 
-   const index = students.findIndex(student => {
-       return student === name
+   const index = foods.findIndex(food => {
+       return food === name
    })
 
    try {
        if (index === -1 && name !== '') {
-           students.push(name)
-           rollbar.log(`${name} was added to the list`)
-           res.status(200).send(students)
+           foods.push(name)
        } else if (name === ''){
-        rollbar.warning('someone entered a blank string')
-           res.status(400).send('You must enter a name.')
        } else {
-        rollbar.warning(`${name} already exists`)
-           res.status(400).send('That student already exists.')
+        
        }
    } catch (err) {
-    rollbar.critical(`adding a student failed`)
-       console.log(err)
    }
 })
 
-app.delete('/api/students/:index', (req, res) => {
+app.delete('/api/foods/:index', (req, res) => {
     const targetIndex = +req.params.index
     
-    students.splice(targetIndex, 1)
-    rollbar.
-    res.status(200).send(students)
+    foods.splice(targetIndex, 1)
+   
 })
 
 const port = process.env.PORT || 5050

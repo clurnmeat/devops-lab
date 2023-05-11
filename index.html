@@ -11,8 +11,8 @@
 <body>
     <h1>Foods</h1>
     <form>
-        <input type='text' placeholder='type a student name here...' />
-        <button>add student</button>
+        <input type='text' placeholder='type a foods name here...' />
+        <button>add foods</button>
     </form>
     <section></section>
 
@@ -28,8 +28,8 @@
             container.innerHTML = ''
             nameInput.value = ''
 
-            res.data.forEach((studentName, index) => {
-                container.innerHTML += `<p name=${index}>${studentName}</p>`
+            res.data.forEach((foodsName, index) => {
+                container.innerHTML += `<p name=${index}>${foodsName}</p>`
             })
 
             document.querySelectorAll('p').forEach(element => {
@@ -37,7 +37,7 @@
 
                 element.addEventListener('click', () => {
                     axios
-                        .delete(`${baseUrl}/api/students/${theIndexValue}`)
+                        .delete(`${baseUrl}/api/foods/${theIndexValue}`)
                         .then(res => {
                             putTheThingInTheView(res)
                         })
@@ -49,7 +49,7 @@
             evt.preventDefault();
 
             axios
-                .post(`${baseUrl}/api/students`, { name: nameInput.value })
+                .post(`${baseUrl}/api/foods`, { name: nameInput.value })
                 .then(res => {
                     putTheThingInTheView(res)
                 })
@@ -71,7 +71,7 @@
 
         // get student list on initial load
         axios
-            .get(`${baseUrl}/api/students`)
+            .get(`${baseUrl}/api/foods`)
             .then(res => {
                 putTheThingInTheView(res)
             })
